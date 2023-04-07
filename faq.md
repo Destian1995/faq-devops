@@ -22,3 +22,23 @@ command: [ "/bin/bash", "-ce", "tail -f /dev/null" ]
         - containerPort: 8080
         command: [ "/bin/bash", "-ce", "tail -f /dev/null" ]
 ```
+
+* Не запускается контейнер после запуска сервиса.
+Тут если нигде с label не накосячили, Service должен видеть свои pods через selector.
+Если все ок то необходимо добавить в Deployment такую команду
+```
+command: ['sh', '-c', 'until nslookup nginx-service.$(cat /var/run/secrets/kubernetes.io/serviceaccount/namespace).svc.cluster.local; do echo waiting for nginx-service; sleep 2; done;']
+
+```
+Итоговый вариант
+```
+ spec:
+      containers:
+      - name: nginx
+        image: nginx
+      initContainers:
+      - name: wait-for-service
+        image: busybox
+        command: ['sh', '-c', 'until nslookup nginx-service.$(cat /var/run/secrets/kubernetes.io/serviceaccount/namespace).svc.cluster.local; do echo waiting for nginx-service; sleep 2; done;']
+
+```
