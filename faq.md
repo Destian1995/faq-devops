@@ -1,4 +1,9 @@
 FAQ kuber, Linux.
+* Здесь я описываю те ошибки с которыми сталкиваюсь при работе с kuber, linux, ansible и др.
+И конечное решение в рамках которого ошибка устраняется.*
+
+
+
 ---
 
 * the connection to the server localhost:8080 did you your specify host or posrt?
