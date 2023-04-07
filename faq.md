@@ -2,6 +2,7 @@ FAQ kuber, Linux.
 ---
 
 * the connection to the server localhost:8080 did you your specify host or posrt?
+Чтобы исправить это введите копирования конфига в локал дерикторию.
 ```
 kubectl config view --raw > $HOME/.kube/config
 ```
